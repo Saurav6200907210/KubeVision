@@ -1,0 +1,116 @@
+import React, { useState } from 'react';
+import { useNodes } from '../hooks/useK8s';
+import { Loader2, Search, Eye } from 'lucide-react';
+import { Card, CardContent } from '../components/ui/card';
+import { StatusBadge } from '../components/shared/StatusBadge';
+import { ResourceDetailsModal } from '../components/shared/ResourceDetailsModal';
+
+export default function Nodes() {
+  const [search, setSearch] = useState('');
+  const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const { data: nodes, isLoading } = useNodes();
+
+  const filtered = nodes?.filter((node: any) => 
+    node.metadata.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Nodes</h2>
+          <p className="text-muted-foreground">The worker machines in your cluster.</p>
+        </div>
+        
+        <div className="flex items-center gap-2 w-full md:w-auto">
+          <div className="relative flex-1 md:w-64">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Search nodes..."
+              className="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 pl-9"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </div>
+      </div>
+
+      <Card>
+        <CardContent className="p-0">
+          <div className="relative w-full overflow-auto">
+            <table className="w-full caption-bottom text-sm">
+              <thead className="[&_tr]:border-b">
+                <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Name</th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Status</th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Roles</th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Version</th>
+                  <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground">Internal IP</th>
+                  <th className="h-12 px-4 align-middle font-medium text-muted-foreground text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="[&_tr:last-child]:border-0">
+                {isLoading ? (
+                  <tr>
+                    <td colSpan={6} className="p-8 text-center text-muted-foreground">
+                      <div className="flex justify-center items-center gap-2">
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Loading nodes...
+                      </div>
+                    </td>
+                  </tr>
+                ) : filtered?.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="p-8 text-center text-muted-foreground">
+                      No nodes found.
+                    </td>
+                  </tr>
+                ) : (
+                  filtered?.map((node: any) => {
+                    const readyCondition = node.status.conditions.find((c: any) => c.type === 'Ready');
+                    const status = readyCondition?.status === 'True' ? 'Ready' : 'NotReady';
+                    
+                    const roles = Object.keys(node.metadata.labels)
+                      .filter(l => l.startsWith('node-role.kubernetes.io/'))
+                      .map(l => l.split('/')[1]);
+                    
+                    const internalIp = node.status.addresses.find((a: any) => a.type === 'InternalIP')?.address;
+
+                    return (
+                      <tr key={node.metadata.uid} className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                        <td className="p-4 align-middle font-medium">{node.metadata.name}</td>
+                        <td className="p-4 align-middle">
+                          <StatusBadge status={status} />
+                        </td>
+                        <td className="p-4 align-middle text-muted-foreground">{roles.length > 0 ? roles.join(', ') : '<none>'}</td>
+                        <td className="p-4 align-middle text-muted-foreground">{node.status.nodeInfo.kubeletVersion}</td>
+                        <td className="p-4 align-middle text-muted-foreground">{internalIp}</td>
+                        <td className="p-4 align-middle text-right">
+                          <button 
+                            onClick={() => setSelectedNode(node.metadata.name)}
+                            className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground h-8 w-8"
+                          >
+                            <Eye className="h-4 w-4" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+
+      {selectedNode && (
+        <ResourceDetailsModal 
+          type="nodes"
+          name={selectedNode}
+          onClose={() => setSelectedNode(null)}
+        />
+      )}
+    </div>
+  );
+}
