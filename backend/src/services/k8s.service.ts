@@ -61,7 +61,7 @@ export class K8sService {
   }
 
   public async getNamespace(name: string) {
-    const res = await this.coreV1Api.readNamespace(name);
+    const res = await this.coreV1Api.readNamespace({ name });
     return (res.body || res);
   }
 
@@ -72,14 +72,14 @@ export class K8sService {
   }
 
   public async getNode(name: string) {
-    const res = await this.coreV1Api.readNode(name);
+    const res = await this.coreV1Api.readNode({ name });
     return (res.body || res);
   }
 
   // --- Pods ---
   public async getPods(namespace?: string) {
     if (namespace && namespace !== 'all') {
-      const res = await this.coreV1Api.listNamespacedPod(namespace);
+      const res = await this.coreV1Api.listNamespacedPod({ namespace });
       return (res.body || res).items;
     } else {
       const res = await this.coreV1Api.listPodForAllNamespaces();
@@ -88,27 +88,24 @@ export class K8sService {
   }
 
   public async getPod(namespace: string, name: string) {
-    const res = await this.coreV1Api.readNamespacedPod(name, namespace);
+    const res = await this.coreV1Api.readNamespacedPod({ name, namespace });
     return (res.body || res);
   }
 
   public async deletePod(namespace: string, name: string) {
-    const res = await this.coreV1Api.deleteNamespacedPod(name, namespace);
+    const res = await this.coreV1Api.deleteNamespacedPod({ name, namespace });
     return (res.body || res);
   }
 
   public async getPodLogs(namespace: string, name: string, container?: string) {
-    // Note: for streaming logs we might want a different approach or websockets, 
-    // but for simple text log we can return a string
     try {
-      const logOptions = {
+      const res = await this.coreV1Api.readNamespacedPodLog({ 
+        name, 
+        namespace, 
+        container,
         tailLines: 500,
-        timestamps: true,
-        container: container
-      };
-      // Client-node has limited support for simple log fetching as string easily without streams
-      // We will use the raw request for simple fetch
-      const res = await this.coreV1Api.readNamespacedPodLog(name, namespace, container, undefined, undefined, undefined, undefined, undefined, undefined, 500, true);
+        timestamps: true
+      });
       return (res.body || res);
     } catch (e: any) {
       throw new Error(`Failed to fetch logs: ${e.message}`);
@@ -118,7 +115,7 @@ export class K8sService {
   // --- Deployments ---
   public async getDeployments(namespace?: string) {
     if (namespace && namespace !== 'all') {
-      const res = await this.appsV1Api.listNamespacedDeployment(namespace);
+      const res = await this.appsV1Api.listNamespacedDeployment({ namespace });
       return (res.body || res).items;
     } else {
       const res = await this.appsV1Api.listDeploymentForAllNamespaces();
@@ -127,33 +124,27 @@ export class K8sService {
   }
 
   public async getDeployment(namespace: string, name: string) {
-    const res = await this.appsV1Api.readNamespacedDeployment(name, namespace);
+    const res = await this.appsV1Api.readNamespacedDeployment({ name, namespace });
     return (res.body || res);
   }
 
   public async scaleDeployment(namespace: string, name: string, replicas: number) {
     const res = await this.appsV1Api.patchNamespacedDeploymentScale(
-      name,
-      namespace,
-      { spec: { replicas } },
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      { name, namespace, body: { spec: { replicas } } },
       { headers: { "Content-Type": "application/merge-patch+json" } }
     );
     return (res.body || res);
   }
 
   public async deleteDeployment(namespace: string, name: string) {
-    const res = await this.appsV1Api.deleteNamespacedDeployment(name, namespace);
+    const res = await this.appsV1Api.deleteNamespacedDeployment({ name, namespace });
     return (res.body || res);
   }
 
   // --- Services ---
   public async getServices(namespace?: string) {
     if (namespace && namespace !== 'all') {
-      const res = await this.coreV1Api.listNamespacedService(namespace);
+      const res = await this.coreV1Api.listNamespacedService({ namespace });
       return (res.body || res).items;
     } else {
       const res = await this.coreV1Api.listServiceForAllNamespaces();
@@ -162,17 +153,17 @@ export class K8sService {
   }
 
   public async getService(namespace: string, name: string) {
-    const res = await this.coreV1Api.readNamespacedService(name, namespace);
+    const res = await this.coreV1Api.readNamespacedService({ name, namespace });
     return (res.body || res);
   }
 
   // --- Events ---
   public async getEvents(namespace?: string, fieldSelector?: string) {
     if (namespace && namespace !== 'all') {
-      const res = await this.coreV1Api.listNamespacedEvent(namespace, undefined, undefined, undefined, fieldSelector);
+      const res = await this.coreV1Api.listNamespacedEvent({ namespace, fieldSelector });
       return (res.body || res).items;
     } else {
-      const res = await this.coreV1Api.listEventForAllNamespaces(undefined, undefined, fieldSelector);
+      const res = await this.coreV1Api.listEventForAllNamespaces({ fieldSelector });
       return (res.body || res).items;
     }
   }

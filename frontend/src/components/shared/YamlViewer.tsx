@@ -18,7 +18,7 @@ export function YamlViewer({ yaml, height = '400px' }: YamlViewerProps) {
   };
 
   return (
-    <div className="relative border border-border rounded-md overflow-hidden bg-[#1e1e1e]">
+    <div className="relative border border-border rounded-md overflow-hidden bg-[#1e1e1e] h-full flex flex-col">
       <div className="flex justify-end p-2 bg-[#2d2d2d] border-b border-[#404040]">
         <button 
           onClick={handleCopy}
@@ -28,20 +28,22 @@ export function YamlViewer({ yaml, height = '400px' }: YamlViewerProps) {
           {copied ? 'Copied!' : 'Copy YAML'}
         </button>
       </div>
-      <Editor
-        height={height}
-        defaultLanguage="yaml"
-        theme="vs-dark"
-        value={yaml}
-        options={{
-          readOnly: true,
-          minimap: { enabled: false },
-          scrollBeyondLastLine: false,
-          fontSize: 13,
-          wordWrap: 'on',
-          padding: { top: 16, bottom: 16 }
-        }}
-      />
+      <div className="flex-1 min-h-0">
+        <Editor
+          height="100%"
+          defaultLanguage="yaml"
+          theme="vs-dark"
+          value={yaml}
+          options={{
+            readOnly: true,
+            minimap: { enabled: false },
+            scrollBeyondLastLine: false,
+            fontSize: 13,
+            wordWrap: 'on',
+            padding: { top: 16, bottom: 16 }
+          }}
+        />
+      </div>
     </div>
   );
 }
