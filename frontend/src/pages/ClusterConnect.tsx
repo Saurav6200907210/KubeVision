@@ -33,7 +33,7 @@ export default function ClusterConnect() {
       {
         onSuccess: (data) => {
           setConnected(true, data.cluster);
-          navigate('/');
+          navigate('/dashboard');
         }
       }
     );
