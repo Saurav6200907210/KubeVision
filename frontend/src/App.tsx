@@ -16,6 +16,7 @@ import Topology from './pages/Topology';
 import Analytics from './pages/Analytics';
 import Settings from './pages/Settings';
 import Search from './pages/Search';
+import Landing from './pages/Landing';
 
 function App() {
   const { isConnected } = useClusterStore();
@@ -23,10 +24,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Landing />} />
         <Route path="/connect" element={<ClusterConnect />} />
         
         {/* Protected Routes */}
-        <Route path="/" element={isConnected ? <MainLayout /> : <Navigate to="/connect" />}>
+        <Route path="/dashboard" element={isConnected ? <MainLayout /> : <Navigate to="/connect" />}>
           <Route index element={<Dashboard />} />
           <Route path="namespaces" element={<Namespaces />} />
           <Route path="pods" element={<Pods />} />
@@ -37,8 +40,10 @@ function App() {
           <Route path="analytics" element={<Analytics />} />
           <Route path="settings" element={<Settings />} />
           <Route path="search" element={<Search />} />
-          <Route path="*" element={<Navigate to="/" />} />
         </Route>
+        
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

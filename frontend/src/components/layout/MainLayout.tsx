@@ -8,14 +8,14 @@ const Sidebar = () => {
   const { cluster } = useClusterStore();
 
   const links = [
-    { name: 'Dashboard', path: '/', icon: LayoutDashboard },
-    { name: 'Namespaces', path: '/namespaces', icon: Box },
-    { name: 'Pods', path: '/pods', icon: Cuboid },
-    { name: 'Deployments', path: '/deployments', icon: Component },
-    { name: 'Services', path: '/services', icon: Network },
-    { name: 'Nodes', path: '/nodes', icon: Server },
-    { name: 'Topology', path: '/topology', icon: Network },
-    { name: 'Analytics', path: '/analytics', icon: LayoutDashboard },
+    { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
+    { name: 'Namespaces', path: '/dashboard/namespaces', icon: Box },
+    { name: 'Pods', path: '/dashboard/pods', icon: Cuboid },
+    { name: 'Deployments', path: '/dashboard/deployments', icon: Component },
+    { name: 'Services', path: '/dashboard/services', icon: Network },
+    { name: 'Nodes', path: '/dashboard/nodes', icon: Server },
+    { name: 'Topology', path: '/dashboard/topology', icon: Network },
+    { name: 'Analytics', path: '/dashboard/analytics', icon: LayoutDashboard },
   ];
 
   return (
@@ -34,7 +34,7 @@ const Sidebar = () => {
 
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {links.map((link) => {
-          const isActive = location.pathname === link.path || (link.path !== '/' && location.pathname.startsWith(link.path));
+          const isActive = location.pathname === link.path || (link.path !== '/dashboard' && location.pathname.startsWith(link.path));
           const Icon = link.icon;
           
           return (
@@ -57,7 +57,7 @@ const Sidebar = () => {
 
       <div className="p-4 border-t border-border">
         <Link
-          to="/settings"
+          to="/dashboard/settings"
           className="flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
         >
           <Settings className="w-4 h-4" />
@@ -75,7 +75,7 @@ const Header = () => {
     if (e.key === 'Enter') {
       const query = (e.target as HTMLInputElement).value;
       if (query.trim()) {
-        navigate(`/search?q=${encodeURIComponent(query.trim())}`);
+        navigate(`/dashboard/search?q=${encodeURIComponent(query.trim())}`);
       }
     }
   };

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useClusterStore } from '../stores/cluster.store';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useConnectCluster } from '../hooks/useK8s';
-import { UploadCloud, Server, Loader2, AlertCircle } from 'lucide-react';
+import { UploadCloud, Server, Loader2, AlertCircle, ArrowLeft } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 
 export default function ClusterConnect() {
@@ -40,7 +40,15 @@ export default function ClusterConnect() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-background p-4">
+    <div className="flex h-screen items-center justify-center bg-background p-4 relative">
+      <Link 
+        to="/" 
+        className="absolute top-6 left-6 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        Back to Home
+      </Link>
+      
       <div className="w-full max-w-xl">
         <div className="flex justify-center mb-8">
           <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center">
