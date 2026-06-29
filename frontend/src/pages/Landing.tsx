@@ -69,10 +69,10 @@ export default function Landing() {
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 px-6 text-sm text-muted-foreground md:flex-row">
             <div className="flex items-center gap-2">
               <Boxes className="h-5 w-5 text-primary" />
-              <span className="font-medium">© {new Date().getFullYear()} KubeVision. All rights reserved.</span>
+              <span className="font-medium">© {new Date().getFullYear()} KubeVision by Saurav Kumar. All rights reserved.</span>
             </div>
             <div className="flex items-center gap-6">
-              <a href="#" className="inline-flex items-center gap-2 hover:text-foreground transition-colors font-medium">
+              <a href="https://github.com/Saurav6200907210/KubeVision" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-foreground transition-colors font-medium">
                 <Github className="h-4 w-4" /> GitHub
               </a>
             </div>

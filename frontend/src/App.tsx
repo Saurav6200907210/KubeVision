@@ -32,7 +32,7 @@ function App() {
         <Route path="/connect" element={<ClusterConnect />} />
         
         {/* Protected Routes */}
-        <Route path="/dashboard" element={isConnected ? <MainLayout /> : <Navigate to="/connect" />}>
+        <Route path="/dashboard" element={isConnected ? <MainLayout /> : <Navigate to="/" />}>
           <Route index element={<Dashboard />} />
           <Route path="namespaces" element={<Namespaces />} />
           <Route path="pods" element={<Pods />} />
