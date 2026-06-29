@@ -18,12 +18,15 @@ import Settings from './pages/Settings';
 import Search from './pages/Search';
 import Landing from './pages/Landing';
 
+import { ThemeProvider } from './components/shared/ThemeProvider';
+
 function App() {
   const { isConnected } = useClusterStore();
 
   return (
-    <BrowserRouter>
-      <Routes>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/connect" element={<ClusterConnect />} />
@@ -46,6 +49,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
+    </ThemeProvider>
   );
 }
 
