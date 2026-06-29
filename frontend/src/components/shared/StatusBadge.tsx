@@ -8,7 +8,7 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ status, className }: StatusBadgeProps) {
   const getStatusColor = (s: string) => {
-    const lower = s.toLowerCase();
+    const lower = (s || 'unknown').toLowerCase();
     if (['running', 'active', 'ready', 'bound'].includes(lower)) {
       return 'bg-green-500/10 text-green-500 border-green-500/20';
     }
