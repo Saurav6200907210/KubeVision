@@ -23,7 +23,7 @@ export default function Landing() {
   const [loading, setLoading] = useState(true);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
+    <div className="light min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary">
       <AnimatePresence>
         {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
       </AnimatePresence>

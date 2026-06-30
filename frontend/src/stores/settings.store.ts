@@ -8,7 +8,7 @@ interface SettingsState {
 }
 
 export const useSettingsStore = create<SettingsState>((set) => ({
-  theme: 'dark', // match shadcn default dark
+  theme: 'light', // match default light
   refreshInterval: 15,
   defaultNamespace: 'default',
   setSettings: (settings) => set((state) => ({ ...state, ...settings })),

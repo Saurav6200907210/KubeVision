@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useClusterStore } from '../stores/cluster.store';
 import { useSettingsStore } from '../stores/settings.store';
+import { useUIStore } from '../stores/ui.store';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Server, Settings as SettingsIcon, LogOut, Check } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import api from '../lib/api';
 export default function Settings() {
   const { cluster, setConnected } = useClusterStore();
   const { theme, refreshInterval, defaultNamespace, setSettings } = useSettingsStore();
+  const { theme: uiTheme, setTheme: setUiTheme } = useUIStore();
   const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
 
@@ -88,11 +90,16 @@ export default function Settings() {
             <label className="text-sm font-medium leading-none">Theme</label>
             <select 
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              value={theme}
-              onChange={(e) => setSettings({ theme: e.target.value as any })}
+              value={uiTheme}
+              onChange={(e) => {
+                const val = e.target.value as 'light' | 'dark' | 'system';
+                setUiTheme(val);
+                setSettings({ theme: val === 'dark' ? 'dark' : 'light' });
+              }}
             >
-              <option value="dark">Dark Mode</option>
               <option value="light">Light Mode</option>
+              <option value="dark">Dark Mode</option>
+              <option value="system">System Default</option>
             </select>
           </div>
 
