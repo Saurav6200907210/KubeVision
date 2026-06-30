@@ -22,7 +22,7 @@
 
     /* Linting */
     "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
