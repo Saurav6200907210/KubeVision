@@ -1,27 +1,33 @@
 <!-- ========================================================= -->
-<!--                      KUBEVISION                           -->
+<!--                     KUBEVISION                            -->
 <!-- ========================================================= -->
 
 <div align="center">
 
 <img src="./assets/banner.png" width="100%" alt="KubeVision Banner"/>
 
-# 🚀 KubeVision
+# ☸️ KubeVision
 
-### Enterprise-Grade Kubernetes Visualization Platform
+### Enterprise Kubernetes Visualization Platform
 
-#### Transform Kubernetes YAML into Interactive Infrastructure Graphs
+### Visualize • Understand • Debug • Deploy Kubernetes Infrastructure
+
+<br>
 
 <p>
 
-An enterprise-grade open-source platform that converts Kubernetes manifests into real-time interactive topology graphs, helping DevOps Engineers, Cloud Architects, and SRE teams understand complex Kubernetes deployments with ease.
+An enterprise-grade open-source platform that transforms Kubernetes YAML manifests into beautiful interactive infrastructure graphs, enabling DevOps Engineers, Cloud Architects, Platform Engineers, and SRE teams to visualize complex Kubernetes deployments in seconds.
 
 </p>
 
 <br>
 
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=24&pause=900&center=true&vCenter=true&width=900&lines=Enterprise+Kubernetes+Visualization;Interactive+Infrastructure+Graphs;Production+Ready+Architecture;Cloud+Native+Developer+Tool;Built+With+React+TypeScript+Node.js"/>
+
+<br>
+
 <a href="https://github.com/Saurav6200907210/KubeVision">
-<img src="https://img.shields.io/github/stars/Saurav6200907210/KubeVision?style=for-the-badge&logo=github&color=181717"/>
+<img src="https://img.shields.io/github/stars/Saurav6200907210/KubeVision?style=for-the-badge&logo=github&color=yellow"/>
 </a>
 
 <a href="https://github.com/Saurav6200907210/KubeVision/network/members">
@@ -41,30 +47,29 @@ An enterprise-grade open-source platform that converts Kubernetes manifests into
 </a>
 
 <a href="#">
-<img src="https://img.shields.io/badge/Made%20With-❤️-red?style=for-the-badge"/>
+<img src="https://img.shields.io/badge/Production-Ready-blue?style=for-the-badge"/>
 </a>
 
-<br><br>
+<a href="#">
+<img src="https://img.shields.io/badge/Kubernetes-Native-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white"/>
+</a>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2500&pause=900&center=true&vCenter=true&width=900&lines=Enterprise+Kubernetes+Visualization;Interactive+Topology+Graphs;Cloud+Native+Architecture;Production+Ready+Platform;Built+With+React+TypeScript+Node.js"/>
+<a href="#">
+<img src="https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white"/>
+</a>
 
 <br><br>
 
 <p>
 
-<a href="#live-demo">🌐 Live Demo</a>
-•
-<a href="#screenshots">📸 Screenshots</a>
-•
-<a href="#features">✨ Features</a>
-•
-<a href="#architecture">🏗 Architecture</a>
-•
-<a href="#installation">⚙ Installation</a>
-•
-<a href="#api">🔌 API</a>
-•
-<a href="#deployment">🚀 Deployment</a>
+<a href="#overview">Overview</a> •
+<a href="#features">Features</a> •
+<a href="#architecture">Architecture</a> •
+<a href="#tech-stack">Tech Stack</a> •
+<a href="#screenshots">Screenshots</a> •
+<a href="#installation">Installation</a> •
+<a href="#deployment">Deployment</a> •
+<a href="#api">API</a>
 
 </p>
 
@@ -74,35 +79,51 @@ An enterprise-grade open-source platform that converts Kubernetes manifests into
 
 # 🌍 Overview
 
-KubeVision is an enterprise-grade Kubernetes visualization platform designed for modern DevOps teams, Cloud Engineers, Platform Engineers, and Site Reliability Engineers (SREs).
+KubeVision is an enterprise-grade Kubernetes visualization platform that converts Kubernetes YAML manifests into interactive dependency graphs.
 
-Instead of manually reading hundreds of Kubernetes YAML files, KubeVision automatically analyzes manifests and generates an interactive infrastructure graph that clearly visualizes how every Kubernetes resource is connected.
+Instead of reading hundreds of YAML files manually, developers can upload manifests and instantly visualize:
 
-Whether you're debugging production deployments, learning Kubernetes, documenting architecture, or validating infrastructure before deployment, KubeVision provides an intuitive visual experience that simplifies complex Kubernetes environments.
+- ☸ Deployments
+- 🚀 Pods
+- 🌐 Services
+- 🔑 Secrets
+- ⚙ ConfigMaps
+- 💾 Persistent Volumes
+- 📦 StatefulSets
+- 🌍 Ingress
+- 📂 Namespaces
+
+KubeVision automatically detects relationships between Kubernetes resources and renders an interactive topology graph using React Flow.
+
+The platform is designed for:
+
+- DevOps Engineers
+- Cloud Engineers
+- Kubernetes Administrators
+- Platform Engineers
+- Site Reliability Engineers
+- Students
+- Open Source Contributors
 
 ---
 
 # 🚀 Why KubeVision?
 
-Managing Kubernetes resources manually becomes increasingly difficult as applications grow.
+Managing Kubernetes infrastructure becomes increasingly difficult as applications grow.
 
-Production clusters often contain:
+Modern production clusters often contain hundreds of interconnected resources.
 
-- Hundreds of Pods
-- Multiple Deployments
-- Services
-- ConfigMaps
+Reading raw YAML files makes it difficult to understand:
+
+- Resource relationships
+- Service communication
+- Networking
+- Configuration
 - Secrets
-- Persistent Volumes
-- Ingress Controllers
-- Namespaces
-- StatefulSets
-- DaemonSets
-- CronJobs
+- Storage
+- Dependencies
 
-Reading raw YAML files makes understanding these relationships difficult.
-
-KubeVision solves this problem by transforming infrastructure into an interactive visual graph.
+KubeVision transforms infrastructure into an interactive visual graph that helps engineers understand deployments within seconds.
 
 ---
 
@@ -111,324 +132,224 @@ KubeVision solves this problem by transforming infrastructure into an interactiv
 Traditional Kubernetes workflows require engineers to:
 
 - Read hundreds of YAML files
-- Track selectors manually
-- Understand resource dependencies
-- Debug networking issues
+- Understand selectors manually
+- Debug service discovery
 - Visualize deployment topology mentally
+- Track ConfigMaps
+- Locate Secrets
+- Follow networking rules
+- Verify PVC bindings
 
-This process becomes slow, error-prone, and difficult for large production clusters.
-
-KubeVision automates the entire visualization process.
+This process becomes slow, repetitive and error-prone.
 
 ---
 
 # 🎯 Solution
 
-KubeVision provides:
+KubeVision automates the entire process.
 
-✅ Intelligent YAML Parser
+Simply upload Kubernetes YAML manifests and KubeVision automatically:
 
-✅ Automatic Dependency Detection
+- Parses YAML
+- Validates Resources
+- Detects Relationships
+- Maps Dependencies
+- Generates Interactive Graphs
+- Visualizes Infrastructure
+- Exports Architecture
 
-✅ Interactive Graph Rendering
+No manual topology drawing required.
 
-✅ Namespace Visualization
+---
 
-✅ Deployment Relationship Mapping
+# ✨ Core Features
 
-✅ Service Discovery Visualization
+| Category | Features |
+|------------|------------|
+| ☸ Kubernetes Resources | Deployment, Pod, Service, Secret, ConfigMap, PVC, Ingress |
+| ⚡ Smart Parser | Automatic YAML Parsing |
+| 🔗 Dependency Engine | Detects Kubernetes Relationships |
+| 🎨 Interactive Graph | Zoom, Pan, Search, Filter |
+| 🌙 Modern UI | Responsive Dashboard |
+| 💾 Export | SVG & PNG |
+| 🐳 Docker | Docker Ready |
+| 🚀 Cloud | Production Deployment |
+| 📊 Visualization | React Flow |
+| 🔐 Security | Secret Masking |
 
-✅ ConfigMap & Secret Relationships
+---
 
-✅ Export to SVG / PNG
+# ⭐ Highlights
 
-✅ Production-ready Architecture
+✅ Enterprise Ready
+
+✅ Modern UI
+
+✅ Cloud Native
+
+✅ Docker Support
+
+✅ Kubernetes Native
+
+✅ Interactive Graphs
+
+✅ Open Source
+
+✅ Production Architecture
+
+✅ TypeScript
+
+✅ REST APIs
 
 ---
 
 # 👨‍💻 Built For
 
 - DevOps Engineers
-- Site Reliability Engineers (SRE)
 - Platform Engineers
 - Cloud Engineers
-- Kubernetes Administrators
-- Students
-- Open Source Contributors
+- Kubernetes Beginners
 - Enterprise Teams
+- SRE Engineers
+- Students
+- Open Source Developers
 
 ---
 
-# ⭐ Highlights
+# 🏆 Key Capabilities
 
-| Feature | Description |
-|----------|-------------|
-| ☸ Kubernetes Visualization | Convert YAML into interactive graphs |
-| 🚀 Enterprise Architecture | Production-ready modular architecture |
-| ⚡ Fast Parsing | Intelligent YAML parsing engine |
-| 🎯 Interactive UI | Zoom, Pan, Search, Filter |
-| 🔍 Relationship Detection | Pods, Services, Deployments, PVC, Secrets |
-| 📦 Modern Stack | React + TypeScript + Express |
-| 🐳 Docker Ready | Containerized development |
-| 📈 Scalable | Suitable for enterprise environments |
+| Kubernetes | Visualization | DevOps |
+|------------|---------------|---------|
+| Deployments | Graph Rendering | Docker |
+| Services | Zoom | GitHub Actions |
+| Pods | Search | CI/CD |
+| Secrets | Filter | Cloud |
+| ConfigMaps | Export | Kubernetes |
+| PVC | React Flow | Production Ready |
+| Namespace | Relationship Detection | Enterprise Architecture |
+
+---
+# 🏗️ Architecture
+
+KubeVision follows a modern cloud-native architecture designed to simplify Kubernetes visualization while maintaining scalability, modularity, and enterprise readiness.
+
+The application consists of three major layers:
+
+- Frontend (React + TypeScript)
+- Backend (Node.js + Express)
+- Visualization Engine (React Flow)
 
 ---
 
----
-
-# ✨ Features
-
-KubeVision is built to simplify Kubernetes visualization through an intuitive, interactive, and production-ready interface.
-
-## 🚀 Core Features
-
-| Category | Features |
-|----------|----------|
-| 📂 YAML Processing | Upload single or multiple Kubernetes YAML manifests |
-| 🔍 Smart Parsing | Detect Deployments, Pods, Services, ConfigMaps, Secrets, PVCs, Ingress and more |
-| 🗺 Interactive Graph | Auto-generated dependency graph using React Flow |
-| 🔗 Relationship Detection | Maps labels, selectors, namespaces and service connections |
-| 📊 Cluster Visualization | Visual representation of Kubernetes infrastructure |
-| 🎨 Modern UI | Responsive interface built with React & Tailwind CSS |
-| 🌙 Theme Support | Light & Dark Mode |
-| 💾 Export | Export Graph as SVG / PNG |
-| ⚡ Performance | Optimized graph rendering with fast layout engine |
-| 🔐 Secure | Secrets are masked before visualization |
-
----
-
-# 🌟 Key Capabilities
-
-<table>
-
-<tr>
-
-<td width="33%">
-
-### ☸ Kubernetes
-
-- Deployments
-- Pods
-- Services
-- ConfigMaps
-- Secrets
-- PVC
-- Ingress
-- Namespace
-
-</td>
-
-<td width="33%">
-
-### 🎨 Visualization
-
-- Interactive Graph
-- Auto Layout
-- Zoom
-- Pan
-- Drag
-- Search
-- Filter
-
-</td>
-
-<td width="33%">
-
-### 🚀 DevOps
-
-- Docker
-- Cloud Ready
-- CI/CD Friendly
-- Production Ready
-- API Driven
-- Enterprise Architecture
-
-</td>
-
-</tr>
-
-</table>
-
----
-
-# 🛠 Technology Stack
-
-## Frontend
-
-| Technology | Purpose |
-|------------|---------|
-| React | UI Development |
-| TypeScript | Type Safety |
-| Vite | Build Tool |
-| Tailwind CSS | Styling |
-| React Flow | Interactive Graph Rendering |
-| Lucide Icons | Icons |
-| Framer Motion | Animations |
-
----
-
-## Backend
-
-| Technology | Purpose |
-|------------|---------|
-| Node.js | Runtime |
-| Express.js | REST API |
-| TypeScript | Backend Language |
-| JS-YAML | YAML Parsing |
-| Kubernetes Client SDK | Kubernetes API |
-
----
-
-## DevOps
-
-| Technology | Purpose |
-|------------|---------|
-| Docker | Containerization |
-| Docker Compose | Local Development |
-| GitHub Actions | CI/CD |
-| Cloudflare Pages | Frontend Hosting |
-| Render | Backend Hosting |
-
----
-
-## Database
-
-| Technology | Purpose |
-|------------|---------|
-| MongoDB | Optional Blueprint Storage |
-
----
-
-# 🧠 AI Inspired Architecture
-
-Although KubeVision focuses on visualization, its architecture is inspired by intelligent dependency analysis.
-
-The parser automatically understands relationships between Kubernetes resources and converts infrastructure into a visual graph.
-
-Capabilities include:
-
-- Resource Detection
-- Dependency Mapping
-- Namespace Analysis
-- Selector Matching
-- Graph Generation
-- Relationship Validation
-- Infrastructure Visualization
-
----
-
-# 📊 Platform Statistics
-
-| Metric | Value |
-|--------|-------|
-| Supported Resources | 20+ |
-| Architecture Type | Client-Server |
-| Graph Engine | React Flow |
-| Backend APIs | REST |
-| Programming Language | TypeScript |
-| Deployment Ready | Yes |
-| Docker Support | Yes |
-| Open Source | MIT |
-
----
-
-# 🏗 High-Level Architecture
-
-```text
-                   ┌───────────────────────────────┐
-                   │         User Browser          │
-                   └──────────────┬────────────────┘
-                                  │
-                                  ▼
-                   ┌───────────────────────────────┐
-                   │      React Frontend (UI)      │
-                   └──────────────┬────────────────┘
-                                  │
-                                  ▼
-                   ┌───────────────────────────────┐
-                   │       Express REST API        │
-                   └──────────────┬────────────────┘
-                                  │
-                                  ▼
-                   ┌───────────────────────────────┐
-                   │      YAML Parsing Engine      │
-                   └──────────────┬────────────────┘
-                                  │
-                                  ▼
-                   ┌───────────────────────────────┐
-                   │ Dependency Graph Generator    │
-                   └──────────────┬────────────────┘
-                                  │
-                                  ▼
-                   ┌───────────────────────────────┐
-                   │ Interactive Graph Renderer    │
-                   └───────────────────────────────┘
-```
-
----
-
-# 🔄 System Workflow
+# 🌐 High Level Architecture
 
 ```mermaid
 flowchart LR
 
-User --> UploadYAML
+User([👤 User])
 
-UploadYAML --> Parser
+Frontend["⚛ React + TypeScript"]
 
+API["🚀 Express REST API"]
+
+Parser["📄 YAML Parser"]
+
+Validator["✅ Validation Engine"]
+
+Analyzer["🧠 Dependency Analyzer"]
+
+Graph["📊 Graph Builder"]
+
+Renderer["🎯 React Flow Renderer"]
+
+Storage[("💾 Blueprint Storage")]
+
+User --> Frontend
+Frontend --> API
+API --> Parser
 Parser --> Validator
+Validator --> Analyzer
+Analyzer --> Graph
+Graph --> Renderer
+API --> Storage
 
-Validator --> DependencyEngine
-
-DependencyEngine --> GraphBuilder
-
-GraphBuilder --> ReactFlow
-
-ReactFlow --> InteractiveUI
-
-InteractiveUI --> ExportSVG
-
-InteractiveUI --> ExportPNG
+style User fill:#FFE082,stroke:#FB8C00,stroke-width:3px
+style Frontend fill:#42A5F5,stroke:#1565C0,color:#fff,stroke-width:3px
+style API fill:#66BB6A,stroke:#2E7D32,color:#fff,stroke-width:3px
+style Parser fill:#AB47BC,stroke:#6A1B9A,color:#fff,stroke-width:3px
+style Validator fill:#7E57C2,stroke:#4527A0,color:#fff,stroke-width:3px
+style Analyzer fill:#8E24AA,stroke:#4A148C,color:#fff,stroke-width:3px
+style Graph fill:#EF5350,stroke:#C62828,color:#fff,stroke-width:3px
+style Renderer fill:#FF7043,stroke:#D84315,color:#fff,stroke-width:3px
+style Storage fill:#26C6DA,stroke:#00838F,color:#fff,stroke-width:3px
 ```
 
 ---
 
-# 🧩 Component Architecture
+# 🔄 Request Lifecycle
 
 ```mermaid
-graph TD
+sequenceDiagram
 
-App --> Layout
+actor User
 
-Layout --> Sidebar
+participant Frontend
 
-Layout --> Navbar
+participant API
 
-Layout --> Dashboard
+participant Parser
 
-Dashboard --> Graph
+participant Engine
 
-Dashboard --> Inspector
+participant Graph
 
-Dashboard --> YAMLViewer
+User->>Frontend: Upload YAML
 
-Dashboard --> Toolbar
+Frontend->>API: POST /api/parser
 
-Toolbar --> Export
+API->>Parser: Parse YAML
 
-Toolbar --> Theme
+Parser->>Engine: Detect Resources
 
-Toolbar --> Search
+Engine->>Engine: Validate Objects
 
-Toolbar --> Filter
+Engine->>Engine: Resolve Relationships
+
+Engine->>Graph: Build Nodes & Edges
+
+Graph-->>API: Graph JSON
+
+API-->>Frontend: Response
+
+Frontend-->>User: Interactive Graph
 ```
 
 ---
 
-# 🔍 Resource Relationship
+# ☸ Kubernetes Resource Relationship
 
 ```mermaid
-graph TD
+flowchart TD
+
+Ingress["🌐 Ingress"]
+
+Service["⚡ Service"]
+
+Deployment["📦 Deployment"]
+
+ReplicaSet["📑 ReplicaSet"]
+
+Pod["🚀 Pods"]
+
+ConfigMap["⚙ ConfigMap"]
+
+Secret["🔐 Secret"]
+
+PVC["💾 Persistent Volume Claim"]
+
+PV["📀 Persistent Volume"]
+
+Storage["☁ Storage Class"]
 
 Ingress --> Service
 
@@ -444,76 +365,206 @@ Pod --> Secret
 
 Pod --> PVC
 
-PVC --> Storage
+PVC --> PV
+
+PV --> Storage
+
+style Ingress fill:#42A5F5,color:#fff
+style Service fill:#66BB6A,color:#fff
+style Deployment fill:#AB47BC,color:#fff
+style ReplicaSet fill:#BA68C8,color:#fff
+style Pod fill:#EF5350,color:#fff
+style ConfigMap fill:#FF9800,color:#fff
+style Secret fill:#E91E63,color:#fff
+style PVC fill:#26C6DA,color:#fff
+style PV fill:#00ACC1,color:#fff
+style Storage fill:#43A047,color:#fff
 ```
 
 ---
 
-# 🚀 Performance
+# 🚀 CI/CD Pipeline
 
-| Benchmark | Result |
-|------------|---------|
-| Graph Rendering | ⚡ Fast |
-| UI Response | Smooth |
-| YAML Parsing | Optimized |
-| Resource Mapping | Automatic |
-| Large File Support | Yes |
-| Export Speed | Instant |
+```mermaid
+flowchart LR
+
+Developer
+
+GitHub
+
+Actions
+
+Build
+
+Test
+
+Docker
+
+DockerHub
+
+Kubernetes
+
+Production
+
+Monitoring
+
+Developer --> GitHub
+
+GitHub --> Actions
+
+Actions --> Build
+
+Build --> Test
+
+Test --> Docker
+
+Docker --> DockerHub
+
+DockerHub --> Kubernetes
+
+Kubernetes --> Production
+
+Kubernetes --> Monitoring
+
+style Developer fill:#FFE082
+style GitHub fill:#212121,color:#fff
+style Actions fill:#42A5F5,color:#fff
+style Build fill:#66BB6A,color:#fff
+style Test fill:#8BC34A,color:#fff
+style Docker fill:#0DB7ED,color:#fff
+style DockerHub fill:#1565C0,color:#fff
+style Kubernetes fill:#326CE5,color:#fff
+style Production fill:#EF5350,color:#fff
+style Monitoring fill:#AB47BC,color:#fff
+```
 
 ---
+
+# 🐳 Docker Architecture
+
+```mermaid
+flowchart TB
+
+Developer
+
+DockerCompose
+
+Frontend
+
+Backend
+
+Redis
+
+PostgreSQL
+
+Developer --> DockerCompose
+
+DockerCompose --> Frontend
+
+DockerCompose --> Backend
+
+Backend --> Redis
+
+Backend --> PostgreSQL
+
+style Developer fill:#FFE082
+style DockerCompose fill:#0DB7ED,color:#fff
+style Frontend fill:#42A5F5,color:#fff
+style Backend fill:#66BB6A,color:#fff
+style Redis fill:#E53935,color:#fff
+style PostgreSQL fill:#1565C0,color:#fff
+```
+
+---
+
+# 🛠️ Technology Stack
+
+## Frontend
+
+| Technology | Purpose |
+|------------|---------|
+| React | UI Development |
+| TypeScript | Type Safety |
+| Vite | Build Tool |
+| Tailwind CSS | Styling |
+| React Flow | Graph Visualization |
+| Lucide React | Icons |
+| Framer Motion | Animations |
+
+---
+
+## Backend
+
+| Technology | Purpose |
+|------------|---------|
+| Node.js | Runtime |
+| Express.js | REST APIs |
+| TypeScript | Backend Development |
+| JS-YAML | YAML Parsing |
+| Zod | Validation |
+| Multer | File Upload |
+
+---
+
+## DevOps
+
+| Technology | Purpose |
+|------------|---------|
+| Docker | Containerization |
+| Docker Compose | Local Development |
+| GitHub Actions | CI/CD |
+| Kubernetes | Deployment |
+| NGINX | Reverse Proxy |
+| Render | Backend Hosting |
+| Cloudflare Pages | Frontend Hosting |
+
+---
+
+## Database
+
+| Technology | Purpose |
+|------------|---------|
+| PostgreSQL | Blueprint Storage |
+| Redis | Cache |
+| Prisma ORM | Database ORM |
 
 ---
 
 # 📂 Project Structure
 
-KubeVision follows a scalable and enterprise-ready project architecture.
-
 ```text
-KubeVision/
+KubeVision
+
+├── frontend
+│   ├── src
+│   ├── assets
+│   ├── pages
+│   ├── components
+│   ├── hooks
+│   ├── services
+│   ├── stores
+│   ├── types
+│   ├── utils
+│   ├── App.tsx
+│   └── main.tsx
 │
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   │   ├── layout/
-│   │   │   ├── graph/
-│   │   │   ├── shared/
-│   │   │   └── ui/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── stores/
-│   │   ├── types/
-│   │   ├── utils/
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   │
-│   ├── package.json
-│   ├── vite.config.ts
-│   └── tailwind.config.js
+├── backend
+│   ├── controllers
+│   ├── middleware
+│   ├── parser
+│   ├── routes
+│   ├── services
+│   ├── models
+│   ├── utils
+│   └── server.ts
 │
-├── backend/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── parser/
-│   │   ├── routes/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   └── server.ts
-│   │
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── docs/
-├── screenshots/
-├── assets/
+├── docs
+├── assets
+├── screenshots
 ├── docker-compose.yml
 ├── Dockerfile
-├── LICENSE
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ---
@@ -522,27 +573,27 @@ KubeVision/
 
 ## 🏠 Landing Page
 
-> Beautiful modern landing page.
+A modern, responsive landing page designed for DevOps engineers with a clean UI and intuitive workflow.
 
 ```md
-![Landing](./screenshots/landing.png)
+![Landing Page](./screenshots/landing.png)
 ```
 
 ---
 
-## 📊 Dashboard
+## 📂 YAML Upload
 
-Monitor and visualize Kubernetes resources.
+Upload one or multiple Kubernetes YAML manifests with drag-and-drop support.
 
 ```md
-![Dashboard](./screenshots/dashboard.png)
+![Upload YAML](./screenshots/upload.png)
 ```
 
 ---
 
-## 🌐 Interactive Graph
+## 📊 Interactive Graph
 
-Visual dependency mapping.
+Automatically visualize Kubernetes resource relationships using an interactive graph.
 
 ```md
 ![Graph](./screenshots/graph.png)
@@ -550,19 +601,19 @@ Visual dependency mapping.
 
 ---
 
-## 📄 YAML Upload
+## 🔍 Resource Inspector
 
-Upload Kubernetes manifests.
+Inspect Deployments, Pods, Services, ConfigMaps, Secrets, PVCs and Ingress resources in detail.
 
 ```md
-![Upload](./screenshots/upload.png)
+![Inspector](./screenshots/inspector.png)
 ```
 
 ---
 
-## 🌙 Dark Theme
+## 🌙 Dark Mode
 
-Modern developer experience.
+Modern developer-focused dark theme with responsive layout.
 
 ```md
 ![Dark Mode](./screenshots/dark.png)
@@ -570,7 +621,7 @@ Modern developer experience.
 
 ---
 
-# ⚙ Installation
+# ⚙️ Installation
 
 ## Clone Repository
 
@@ -584,19 +635,23 @@ cd KubeVision
 
 ---
 
-## Install Frontend
+# 📦 Install Dependencies
+
+## Frontend
 
 ```bash
 cd frontend
+
 npm install
 ```
 
 ---
 
-## Install Backend
+## Backend
 
 ```bash
 cd ../backend
+
 npm install
 ```
 
@@ -615,7 +670,9 @@ backend/.env
 ```env
 PORT=5000
 
-MONGO_URI=
+DATABASE_URL=
+
+REDIS_URL=
 
 JWT_SECRET=
 
@@ -625,6 +682,8 @@ NODE_ENV=development
 ---
 
 ## Frontend
+
+Create
 
 ```
 frontend/.env
@@ -636,7 +695,9 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-# ▶ Run Backend
+# ▶ Running Locally
+
+## Backend
 
 ```bash
 npm run dev
@@ -644,7 +705,7 @@ npm run dev
 
 ---
 
-# ▶ Run Frontend
+## Frontend
 
 ```bash
 npm run dev
@@ -652,9 +713,9 @@ npm run dev
 
 ---
 
-# 🐳 Docker
+# 🐳 Docker Setup
 
-## Build
+## Build Containers
 
 ```bash
 docker compose build
@@ -662,7 +723,7 @@ docker compose build
 
 ---
 
-## Run
+## Start Containers
 
 ```bash
 docker compose up
@@ -670,7 +731,7 @@ docker compose up
 
 ---
 
-## Detached Mode
+## Run Detached
 
 ```bash
 docker compose up -d
@@ -678,7 +739,7 @@ docker compose up -d
 
 ---
 
-## Stop
+## Stop Containers
 
 ```bash
 docker compose down
@@ -688,49 +749,71 @@ docker compose down
 
 # ☸ Kubernetes Deployment
 
-Apply Namespace
+## Create Namespace
 
 ```bash
-kubectl apply -f namespace.yaml
+kubectl apply -f k8s/namespace.yaml
 ```
 
-Deploy Backend
+---
+
+## Deploy Backend
 
 ```bash
-kubectl apply -f backend-deployment.yaml
+kubectl apply -f k8s/backend-deployment.yaml
 ```
 
-Deploy Frontend
+---
+
+## Deploy Frontend
 
 ```bash
-kubectl apply -f frontend-deployment.yaml
+kubectl apply -f k8s/frontend-deployment.yaml
 ```
 
-Deploy Services
+---
+
+## Deploy Redis
 
 ```bash
-kubectl apply -f service.yaml
+kubectl apply -f k8s/redis-deployment.yaml
 ```
 
-Ingress
+---
+
+## Apply Services
 
 ```bash
-kubectl apply -f ingress.yaml
+kubectl apply -f k8s/services.yaml
 ```
 
-Verify
+---
+
+## Deploy Ingress
+
+```bash
+kubectl apply -f k8s/ingress.yaml
+```
+
+---
+
+## Verify
 
 ```bash
 kubectl get pods
+```
 
+```bash
 kubectl get svc
+```
 
+```bash
 kubectl get ingress
 ```
 
 ---
 
-# 🚀 Deployment
+# ☁ Cloud Deployment
 
 ## Frontend
 
@@ -744,17 +827,23 @@ kubectl get ingress
 
 - Render
 - Railway
-- Azure App Service
 - Google Cloud Run
+- Azure App Service
 
 ---
 
 ## Database
 
-- MongoDB Atlas
 - PostgreSQL
 - Neon
 - Supabase
+
+---
+
+## Cache
+
+- Redis
+- Upstash Redis
 
 ---
 
@@ -767,26 +856,28 @@ kubectl get ingress
 
 # 🔌 REST API
 
-## Parse YAML
+## Parse Kubernetes YAML
 
 ```http
 POST /api/v1/parser/analyze
 ```
 
-Request
+### Request
 
 ```json
 {
-  "yaml":"..."
+  "yaml": "..."
 }
 ```
 
-Response
+### Response
 
 ```json
 {
-  "success":true,
-  "graph":{}
+  "success": true,
+  "graph": {},
+  "nodes": [],
+  "edges": []
 }
 ```
 
@@ -808,6 +899,14 @@ GET /api/v1/blueprints
 
 ---
 
+## Get Blueprint By ID
+
+```http
+GET /api/v1/blueprints/:id
+```
+
+---
+
 ## Delete Blueprint
 
 ```http
@@ -816,149 +915,84 @@ DELETE /api/v1/blueprints/:id
 
 ---
 
-# 📊 API Overview
+# 📑 API Overview
 
 | Endpoint | Method | Description |
-|-----------|---------|-------------|
-| /parser/analyze | POST | Parse Kubernetes YAML |
-| /blueprints | GET | Fetch Blueprints |
-| /blueprints | POST | Save Blueprint |
-| /blueprints/:id | DELETE | Delete Blueprint |
+|----------|--------|-------------|
+| `/parser/analyze` | POST | Parse Kubernetes YAML |
+| `/blueprints` | GET | Fetch Saved Blueprints |
+| `/blueprints` | POST | Save Blueprint |
+| `/blueprints/:id` | GET | Get Blueprint |
+| `/blueprints/:id` | DELETE | Delete Blueprint |
 
 ---
 
-# 🔒 Security
+# 🚀 Deployment Targets
 
-- CORS Protection
-- Helmet
-- Input Validation
-- Secret Masking
-- Environment Variables
-- Rate Limiting
-- Secure REST APIs
-
----
-
-# ⚡ Performance
-
-- Lazy Loading
-- Code Splitting
-- Optimized Graph Rendering
-- Fast YAML Parsing
-- React Memoization
-- Efficient State Management
+| Platform | Status |
+|-----------|--------|
+| Docker | ✅ Supported |
+| Docker Compose | ✅ Supported |
+| Kubernetes | ✅ Supported |
+| Cloudflare Pages | ✅ Supported |
+| Render | ✅ Supported |
+| Railway | ✅ Supported |
+| Google Cloud Run | ✅ Supported |
+| Azure App Service | ✅ Supported |
+| DigitalOcean | ✅ Supported |
 
 ---
 
----
+# 📈 Performance
 
-# 🤖 AI & Intelligent Features
-
-Although KubeVision is primarily a Kubernetes visualization platform, it is designed with an intelligent architecture capable of analyzing infrastructure relationships and presenting meaningful insights.
-
-## Current Intelligent Capabilities
-
-- ✅ Automatic Kubernetes Resource Detection
-- ✅ YAML Validation
-- ✅ Namespace Mapping
-- ✅ Dependency Discovery
-- ✅ Service-to-Pod Relationship Mapping
-- ✅ Secret & ConfigMap Detection
-- ✅ PVC Relationship Analysis
-- ✅ Interactive Infrastructure Graph
-
----
-
-# 🧠 Future AI Roadmap
-
-The following AI-powered capabilities are planned for future releases.
-
-| Feature | Status |
-|---------|--------|
-| AI YAML Explanation | 🚧 Planned |
-| Infrastructure Summary | 🚧 Planned |
-| Kubernetes Best Practices | 🚧 Planned |
-| Security Recommendations | 🚧 Planned |
-| Cost Optimization Suggestions | 🚧 Planned |
-| Auto Resource Optimization | 🚧 Planned |
-| AI Troubleshooting | 🚧 Planned |
-| AI Architecture Review | 🚧 Planned |
-
----
-
-# 🏗 Enterprise Architecture
-
-```text
-                        User
-                         │
-                         ▼
-               React + TypeScript
-                         │
-        ┌────────────────┴───────────────┐
-        │                                │
-        ▼                                ▼
- Graph Visualization             Dashboard UI
-        │                                │
-        └──────────────┬─────────────────┘
-                       ▼
-                 Express REST API
-                       │
-        ┌──────────────┼──────────────┐
-        ▼              ▼              ▼
-   YAML Parser   Validation Engine   Graph Builder
-        │              │              │
-        └──────────────┼──────────────┘
-                       ▼
-              Kubernetes Resource Model
-                       │
-                       ▼
-             Interactive Topology Graph
-```
-
----
-
-# 🔄 Complete Request Lifecycle
-
-```mermaid
-sequenceDiagram
-
-participant User
-participant Frontend
-participant Backend
-participant Parser
-participant Graph
-
-User->>Frontend: Upload YAML
-
-Frontend->>Backend: POST Request
-
-Backend->>Parser: Parse YAML
-
-Parser->>Parser: Validate Resources
-
-Parser->>Graph: Build Dependency Graph
-
-Graph-->>Backend: Graph JSON
-
-Backend-->>Frontend: API Response
-
-Frontend-->>User: Interactive Visualization
-```
-
----
-
-# ⚡ Performance Benchmarks
-
-| Benchmark | Performance |
-|------------|-------------|
-| Initial Load | < 2 Seconds |
+| Metric | Result |
+|---------|---------|
 | YAML Parsing | < 100 ms |
-| Graph Generation | < 120 ms |
-| UI Rendering | 60 FPS |
+| Graph Generation | < 150 ms |
 | API Response | < 300 ms |
+| Initial Load | < 2 sec |
 | Lighthouse Score | 95+ |
 | Accessibility | 100 |
 | Best Practices | 100 |
+
+---
+
+# 🔐 Security
+
+KubeVision follows modern security best practices to ensure safe visualization and processing of Kubernetes manifests.
+
+## Security Features
+
+- ✅ Helmet.js Security Headers
+- ✅ CORS Protection
+- ✅ Environment Variable Management
+- ✅ Input Validation
+- ✅ Secret Masking
+- ✅ Rate Limiting
+- ✅ Secure REST APIs
+- ✅ File Type Validation
+- ✅ YAML Schema Validation
+- ✅ Error Handling
+- ✅ Secure Docker Images
+- ✅ Production Configuration
+
+---
+
+# ⚡ Performance Optimization
+
+KubeVision is optimized for speed and scalability.
+
+| Feature | Optimization |
+|----------|--------------|
+| YAML Parsing | Streaming Parser |
+| Rendering | React Flow Virtualization |
+| API | Async Processing |
+| Frontend | Lazy Loading |
+| Components | React Memo |
+| State | Zustand |
+| Cache | Redis |
+| Images | Optimized Assets |
+| Build | Vite |
 
 ---
 
@@ -970,178 +1004,86 @@ Frontend-->>User: Interactive Visualization
 - UI Testing
 - Responsive Testing
 - Accessibility Testing
+- Cross Browser Testing
 
 ---
 
 ## Backend
 
-- API Testing
+- REST API Testing
 - Parser Testing
 - Validation Testing
 - Error Handling
+- Performance Testing
 
 ---
 
 ## Integration
 
 - Frontend ↔ Backend
-- Parser ↔ Graph
+- API ↔ Parser
 - Docker Environment
+- Kubernetes Deployment
 
 ---
 
-# 🚀 CI/CD Pipeline
+# 🤖 AI Roadmap
 
-```mermaid
-flowchart LR
+The current version focuses on Kubernetes visualization.
 
-Developer
+Future versions will include AI-powered features.
 
---> GitHub
-
-GitHub
-
---> GitHub Actions
-
-GitHub Actions
-
---> Install
-
-Install
-
---> Test
-
-Test
-
---> Build
-
-Build
-
---> Docker Image
-
-Docker Image
-
---> Docker Hub
-
-Docker Hub
-
---> Production
-```
+| Feature | Status |
+|----------|----------|
+| AI YAML Explanation | 🚧 Planned |
+| AI Infrastructure Summary | 🚧 Planned |
+| AI Best Practices | 🚧 Planned |
+| AI Security Scanner | 🚧 Planned |
+| AI Cost Optimization | 🚧 Planned |
+| AI Troubleshooting | 🚧 Planned |
+| AI Architecture Review | 🚧 Planned |
+| AI Cluster Insights | 🚧 Planned |
 
 ---
 
-# 🐳 Container Architecture
+# 📊 Resume Highlights
 
-```text
-Developer
-
-↓
-
-Docker Compose
-
-↓
-
-Frontend Container
-
-↓
-
-Backend Container
-
-↓
-
-MongoDB
-
-↓
-
-Kubernetes
-```
-
----
-
-# ☁ Cloud Deployment
-
-## Frontend
-
-- Cloudflare Pages
-- Vercel
-- Netlify
-
----
-
-## Backend
-
-- Render
-- Railway
-- Azure
-- Google Cloud Run
-
----
-
-## Containers
-
-- Docker Hub
-- GitHub Container Registry
-
----
-
-## Kubernetes
-
-- Minikube
-- Kind
-- Amazon EKS
-- Google GKE
-- Azure AKS
-
----
-
-# 🔐 Security
-
-Enterprise security principles followed:
-
-- Helmet Middleware
-- Rate Limiting
-- Environment Variables
-- Secret Masking
-- Secure REST APIs
-- Input Validation
-- CORS Protection
-- Error Handling
-- Production Configuration
-
----
-
-# 📊 Engineering Principles
-
-KubeVision follows modern software engineering practices.
-
-- Clean Architecture
-- SOLID Principles
-- Separation of Concerns
-- Modular Design
-- Scalable Folder Structure
-- Reusable Components
-- API-first Development
-- Type Safety
-- Production-ready Configuration
-
----
-
-# 💼 Resume Highlights
-
-This project demonstrates practical experience in:
+This project demonstrates hands-on experience in:
 
 - Kubernetes
 - Docker
 - React
 - TypeScript
+- Node.js
 - Express.js
 - REST APIs
-- Cloud Deployment
-- YAML Processing
+- PostgreSQL
+- Redis
+- React Flow
+- YAML Parsing
 - System Design
-- Graph Visualization
+- Cloud Deployment
+- CI/CD
+- GitHub Actions
+- Software Architecture
+- Infrastructure Visualization
 - Enterprise Documentation
-- DevOps Fundamentals
+
+---
+
+# 💼 Real World Use Cases
+
+KubeVision can be used for:
+
+- Kubernetes Learning
+- Infrastructure Documentation
+- Deployment Validation
+- Production Debugging
+- DevOps Training
+- Enterprise Architecture Review
+- Cluster Visualization
+- Cloud Migration Planning
+- CI/CD Verification
 
 ---
 
@@ -1149,34 +1091,127 @@ This project demonstrates practical experience in:
 
 KubeVision is completely open source.
 
-Contributions are welcome.
+Contributions from the community are always welcome.
 
-If you find this project useful, please consider:
+Ways to contribute:
 
-⭐ Starring the repository
-
-🍴 Forking the repository
-
-🐛 Reporting issues
-
-💡 Suggesting improvements
-
-🤝 Creating pull requests
+- ⭐ Star the Repository
+- 🍴 Fork the Project
+- 🐛 Report Bugs
+- 💡 Suggest New Features
+- 🔧 Submit Pull Requests
+- 📖 Improve Documentation
 
 ---
 
-# 📈 Future Roadmap
+# 🤝 Contributing
 
-- [ ] Helm Chart Support
-- [ ] Multi Cluster Support
-- [ ] ArgoCD Integration
-- [ ] Prometheus Integration
-- [ ] Grafana Dashboard
-- [ ] RBAC Visualization
-- [ ] AI Assistant
-- [ ] Live Cluster Monitoring
-- [ ] GitOps Support
-- [ ] Terraform Visualization
+1. Fork the repository
+
+2. Create your feature branch
+
+```bash
+git checkout -b feature/amazing-feature
+```
+
+3. Commit your changes
+
+```bash
+git commit -m "Add amazing feature"
+```
+
+4. Push the branch
+
+```bash
+git push origin feature/amazing-feature
+```
+
+5. Open a Pull Request
+
+---
+
+# 🛣 Roadmap
+
+## Version 1.0
+
+- ✅ YAML Parser
+- ✅ Interactive Graph
+- ✅ React Flow Integration
+- ✅ Docker Support
+- ✅ Kubernetes Support
+
+---
+
+## Version 2.0
+
+- 🚧 Blueprint Management
+- 🚧 Search & Filter
+- 🚧 Dark Mode Improvements
+- 🚧 Graph Export
+- 🚧 Performance Optimization
+
+---
+
+## Version 3.0
+
+- 🚧 Helm Chart Visualization
+- 🚧 Multi Cluster Support
+- 🚧 GitOps Visualization
+- 🚧 Terraform Visualization
+- 🚧 ArgoCD Integration
+- 🚧 FluxCD Integration
+
+---
+
+## Version 4.0
+
+- 🚧 Live Kubernetes Cluster
+- 🚧 Prometheus Integration
+- 🚧 Grafana Dashboard
+- 🚧 RBAC Visualization
+- 🚧 Event Timeline
+- 🚧 Audit Logs
+
+---
+
+## Version 5.0
+
+- 🚧 AI Infrastructure Review
+- 🚧 AI YAML Generator
+- 🚧 AI Cost Optimization
+- 🚧 AI Troubleshooting
+- 🚧 AI Security Recommendations
+
+---
+
+# 📈 Project Statistics
+
+| Metric | Value |
+|----------|--------|
+| Programming Language | TypeScript |
+| Frontend | React |
+| Backend | Express.js |
+| Graph Engine | React Flow |
+| API | REST |
+| Containerization | Docker |
+| Orchestration | Kubernetes |
+| Database | PostgreSQL |
+| Cache | Redis |
+| CI/CD | GitHub Actions |
+| License | MIT |
+
+---
+
+# 📚 Documentation
+
+Additional documentation:
+
+- Installation Guide
+- Deployment Guide
+- Docker Guide
+- Kubernetes Guide
+- API Reference
+- Architecture Documentation
 
 ---
 
@@ -1184,32 +1219,60 @@ If you find this project useful, please consider:
 
 If you found this project useful,
 
-⭐ Star the repository
+please consider supporting it by:
 
-🍴 Fork it
+⭐ Starring the repository
 
-🐛 Report Issues
+🍴 Forking the project
 
-🤝 Contribute
+🐛 Reporting issues
 
-📢 Share it with the community
+🤝 Contributing
+
+📢 Sharing it with the community
+
+Every contribution helps improve KubeVision.
+
+---
+
+# 👨‍💻 Author
+
+**Saurav Kumar**
+
+DevOps Engineer • Cloud Engineer • Full Stack Developer
+
+### Connect with me
+
+- GitHub
+- LinkedIn
+- Portfolio
+
+---
+
+# 📜 License
+
+This project is licensed under the MIT License.
+
+See the LICENSE file for more information.
 
 ---
 
 <div align="center">
 
-# 🚀 KubeVision
+# ☸️ KubeVision
 
-### Visualizing Kubernetes Like Never Before
+### Visualizing Kubernetes Infrastructure Like Never Before
 
-Built with ❤️ by **Saurav Kumar**
+---
 
-If you like this project,
+### Built with ❤️ using
 
-⭐ Star it
+React • TypeScript • Node.js • Express • Docker • Kubernetes • PostgreSQL • Redis • React Flow
 
-🍴 Fork it
+---
 
-🚀 Share it
+⭐ **If this project helped you, please give it a Star!**
+
+🚀 **Happy Coding & Happy Learning!**
 
 </div>
