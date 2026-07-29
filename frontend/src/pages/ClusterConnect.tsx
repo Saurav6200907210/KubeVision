@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useClusterStore } from '../stores/cluster.store';
 import { Link, useNavigate } from 'react-router-dom';
-import { Server, Loader2, AlertCircle, ArrowLeft, Terminal, CheckCircle2, Copy } from 'lucide-react';
+import { Server, Loader2, AlertCircle, ArrowLeft, Download, Monitor, Apple, MonitorCheck } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import api from '../lib/api';
 
@@ -14,6 +14,10 @@ export default function ClusterConnect() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState<string>('');
+  const [os, setOs] = useState<'win' | 'macos' | 'linux'>('win');
+  
+  // Base URL calculation to dynamically give the user the correct backend URL
+  const backendBaseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') : 'http://localhost:4000';
 
   useEffect(() => {
     // Generate or retrieve session ID
@@ -112,17 +116,48 @@ export default function ClusterConnect() {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-sm font-semibold">1. Install the Connector</h3>
-                  <div className="relative group">
-                    <pre className="bg-muted p-4 rounded-lg text-sm font-mono flex items-center justify-between border border-border/50">
-                      <code>npm install -g kubevision-connector</code>
-                    </pre>
+                  <h3 className="text-sm font-semibold mb-2">1. Download Connector</h3>
+                  
+                  <div className="flex gap-2 mb-4">
+                    <button 
+                      onClick={() => setOs('win')} 
+                      className={`flex-1 py-2 px-3 rounded-md border text-sm flex items-center justify-center gap-2 transition-colors ${os === 'win' ? 'bg-primary text-primary-foreground border-primary' : 'bg-background hover:bg-muted'}`}
+                    >
+                      <Monitor className="w-4 h-4" /> Windows
+                    </button>
+                    <button 
+                      onClick={() => setOs('macos')} 
+                      className={`flex-1 py-2 px-3 rounded-md border text-sm flex items-center justify-center gap-2 transition-colors ${os === 'macos' ? 'bg-primary text-primary-foreground border-primary' : 'bg-background hover:bg-muted'}`}
+                    >
+                      <Apple className="w-4 h-4" /> macOS
+                    </button>
+                    <button 
+                      onClick={() => setOs('linux')} 
+                      className={`flex-1 py-2 px-3 rounded-md border text-sm flex items-center justify-center gap-2 transition-colors ${os === 'linux' ? 'bg-primary text-primary-foreground border-primary' : 'bg-background hover:bg-muted'}`}
+                    >
+                      <MonitorCheck className="w-4 h-4" /> Linux
+                    </button>
                   </div>
 
-                  <h3 className="text-sm font-semibold">2. Pair & Start</h3>
+                  <a 
+                    href={`https://github.com/Saurav6200907210/KubeVision/releases/latest/download/kubevision-connector-${os === 'win' ? 'win.exe' : os === 'macos' ? 'macos' : 'linux'}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center rounded-md border border-primary/20 bg-primary/10 hover:bg-primary/20 text-primary h-10 px-4 font-medium transition-colors"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Download kubevision-connector{os === 'win' ? '.exe' : ''}
+                  </a>
+
+                  <h3 className="text-sm font-semibold mt-6 mb-2">2. Open Terminal and Start</h3>
+                  <p className="text-xs text-muted-foreground mb-2">Run this command in the folder where you downloaded the file:</p>
                   <div className="relative group">
                     <pre className="bg-muted p-4 rounded-lg text-sm font-mono overflow-x-auto border border-border/50">
-                      <code>kubevision-connector pair {pairingCode}<br/>kubevision-connector start</code>
+                      <code>
+                        {os === 'win' ? '.\\kubevision-connector-win.exe' : os === 'macos' ? 'chmod +x ./kubevision-connector-macos && ./kubevision-connector-macos' : 'chmod +x ./kubevision-connector-linux && ./kubevision-connector-linux'} pair {pairingCode} -u {backendBaseUrl}
+                        <br/>
+                        {os === 'win' ? '.\\kubevision-connector-win.exe' : os === 'macos' ? './kubevision-connector-macos' : './kubevision-connector-linux'} start
+                      </code>
                     </pre>
                   </div>
                 </div>
