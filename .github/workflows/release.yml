@@ -31,7 +31,7 @@ jobs:
           pkg package.json --out-path binaries
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v3
         with:
           files: connector/binaries/*
         env:
