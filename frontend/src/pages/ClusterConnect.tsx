@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useClusterStore } from '../stores/cluster.store';
 import { Link, useNavigate } from 'react-router-dom';
-import { Server, Loader2, AlertCircle, ArrowLeft, Download, Monitor, Apple, MonitorCheck } from 'lucide-react';
+import { Server, Loader2, AlertCircle, ArrowLeft, Download, Monitor, Apple, MonitorCheck, Copy, Check } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import api from '../lib/api';
 
@@ -16,6 +16,7 @@ export default function ClusterConnect() {
   const [error, setError] = useState<string>('');
   const [os, setOs] = useState<'win' | 'macos' | 'linux'>('win');
   const [showHelp, setShowHelp] = useState(false);
+  const [copiedCmd, setCopiedCmd] = useState<string | null>(null);
   
   // Base URL calculation to dynamically give the user the correct backend URL
   const backendBaseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') : 'http://localhost:4000';
@@ -64,8 +65,26 @@ export default function ClusterConnect() {
     }
   };
 
-  const copyCommand = (cmd: string) => {
+  const handleCopy = (cmd: string) => {
     navigator.clipboard.writeText(cmd);
+    setCopiedCmd(cmd);
+    setTimeout(() => setCopiedCmd(null), 2000);
+  };
+
+  const getConnectorCmd = () => {
+    const pairCmd = os === 'win' 
+      ? `.\\kubevision-connector-win.exe pair ${pairingCode} -u ${backendBaseUrl}` 
+      : os === 'macos' 
+        ? `chmod +x ./kubevision-connector-macos && ./kubevision-connector-macos pair ${pairingCode} -u ${backendBaseUrl}` 
+        : `chmod +x ./kubevision-connector-linux && ./kubevision-connector-linux pair ${pairingCode} -u ${backendBaseUrl}`;
+    
+    const startCmd = os === 'win' 
+      ? `.\\kubevision-connector-win.exe start` 
+      : os === 'macos' 
+        ? `./kubevision-connector-macos start` 
+        : `./kubevision-connector-linux start`;
+        
+    return `${pairCmd}\n${startCmd}`;
   };
 
   return (
@@ -141,13 +160,31 @@ export default function ClusterConnect() {
                         <div>
                           <strong className="text-foreground block mb-1">2. Minikube Start Command</strong>
                           <p className="mb-1">Apna terminal (PowerShell) open karein aur Minikube ko Docker driver ke sath start karne ke liye ye command chalayein:</p>
-                          <pre className="bg-muted/80 p-2 rounded overflow-x-auto text-muted-foreground border border-border/50 font-mono"><code>minikube start --driver=docker</code></pre>
+                          <div className="relative group mt-1">
+                            <pre className="bg-muted/80 p-2 pr-8 rounded overflow-x-auto text-muted-foreground border border-border/50 font-mono"><code>minikube start --driver=docker</code></pre>
+                            <button 
+                              onClick={() => handleCopy('minikube start --driver=docker')}
+                              className="absolute right-1.5 top-1.5 p-1.5 rounded-md bg-background/80 hover:bg-background border border-border/50 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
+                              title="Copy command"
+                            >
+                              {copiedCmd === 'minikube start --driver=docker' ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+                            </button>
+                          </div>
                           <p className="mt-1 opacity-80 italic">Note: Ye command Docker ke andar ek container banayega aur usme poora Kubernetes cluster setup karega. Isme thoda time lag sakta hai.</p>
                         </div>
                         <div>
                           <strong className="text-foreground block mb-1">3. Verify karein ki cluster chal gaya hai</strong>
                           <p className="mb-1">Jab upar wali command complete ho jaye, to ye check karne ke liye ki sab kuch theek se chal raha hai, ye command run karein:</p>
-                          <pre className="bg-muted/80 p-2 rounded overflow-x-auto text-muted-foreground border border-border/50 font-mono"><code>kubectl get nodes</code></pre>
+                          <div className="relative group mt-1">
+                            <pre className="bg-muted/80 p-2 pr-8 rounded overflow-x-auto text-muted-foreground border border-border/50 font-mono"><code>kubectl get nodes</code></pre>
+                            <button 
+                              onClick={() => handleCopy('kubectl get nodes')}
+                              className="absolute right-1.5 top-1.5 p-1.5 rounded-md bg-background/80 hover:bg-background border border-border/50 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100"
+                              title="Copy command"
+                            >
+                              {copiedCmd === 'kubectl get nodes' ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+                            </button>
+                          </div>
                           <p className="mt-1 opacity-80 italic">(Aapko minikube naam ka ek node dikhega jiska status Ready hoga.)</p>
                         </div>
                       </div>
@@ -190,13 +227,18 @@ export default function ClusterConnect() {
                   <h3 className="text-sm font-semibold mt-6 mb-2">2. Open Terminal and Start</h3>
                   <p className="text-xs text-muted-foreground mb-2">Run this command in the folder where you downloaded the file:</p>
                   <div className="relative group">
-                    <pre className="bg-muted p-4 rounded-lg text-sm font-mono overflow-x-auto border border-border/50">
+                    <pre className="bg-muted p-4 pr-12 rounded-lg text-sm font-mono overflow-x-auto border border-border/50">
                       <code>
-                        {os === 'win' ? '.\\kubevision-connector-win.exe' : os === 'macos' ? 'chmod +x ./kubevision-connector-macos && ./kubevision-connector-macos' : 'chmod +x ./kubevision-connector-linux && ./kubevision-connector-linux'} pair {pairingCode} -u {backendBaseUrl}
-                        <br/>
-                        {os === 'win' ? '.\\kubevision-connector-win.exe' : os === 'macos' ? './kubevision-connector-macos' : './kubevision-connector-linux'} start
+                        {getConnectorCmd()}
                       </code>
                     </pre>
+                    <button 
+                      onClick={() => handleCopy(getConnectorCmd())}
+                      className="absolute right-3 top-3 p-2 rounded-md bg-background/80 hover:bg-background border border-border/50 opacity-0 group-hover:opacity-100 transition-opacity focus:opacity-100 shadow-sm"
+                      title="Copy command"
+                    >
+                      {copiedCmd === getConnectorCmd() ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                    </button>
                   </div>
                 </div>
 
