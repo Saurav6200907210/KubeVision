@@ -15,6 +15,7 @@ export default function ClusterConnect() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState<string>('');
   const [os, setOs] = useState<'win' | 'macos' | 'linux'>('win');
+  const [showHelp, setShowHelp] = useState(false);
   
   // Base URL calculation to dynamically give the user the correct backend URL
   const backendBaseUrl = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') : 'http://localhost:4000';
@@ -116,12 +117,41 @@ export default function ClusterConnect() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="mb-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 text-sm text-blue-600 dark:text-blue-400">
-                    <h3 className="font-semibold flex items-center gap-2 mb-1">
-                      <AlertCircle className="w-4 h-4" />
-                      Prerequisite
-                    </h3>
+                  <div className="mb-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 text-sm text-blue-600 dark:text-blue-400 transition-all duration-300">
+                    <div className="flex items-center justify-between mb-1">
+                      <h3 className="font-semibold flex items-center gap-2">
+                        <AlertCircle className="w-4 h-4" />
+                        Prerequisite
+                      </h3>
+                      <button 
+                        onClick={() => setShowHelp(!showHelp)}
+                        className="text-xs flex items-center gap-1 hover:underline focus:outline-none font-medium bg-blue-500/20 px-2 py-1 rounded"
+                      >
+                        {showHelp ? "Hide help" : "Need help?"}
+                      </button>
+                    </div>
                     <p>Ensure your local Kubernetes cluster (e.g., Minikube or Docker Desktop) is running before starting the connector.</p>
+                    
+                    {showHelp && (
+                      <div className="mt-4 p-3 bg-white/60 dark:bg-black/30 rounded-md border border-blue-500/10 text-left space-y-4 text-xs text-foreground/90 shadow-sm animate-in fade-in slide-in-from-top-2">
+                        <div>
+                          <strong className="text-foreground block mb-1">1. Sabse pehle Docker start karein</strong>
+                          <p>Ensure karein ki aapke system par Docker Desktop application open hai aur background mein chal rahi hai. (Docker icon aapke taskbar mein hona chahiye aur "Engine running" dikhana chahiye).</p>
+                        </div>
+                        <div>
+                          <strong className="text-foreground block mb-1">2. Minikube Start Command</strong>
+                          <p className="mb-1">Apna terminal (PowerShell) open karein aur Minikube ko Docker driver ke sath start karne ke liye ye command chalayein:</p>
+                          <pre className="bg-muted/80 p-2 rounded overflow-x-auto text-muted-foreground border border-border/50 font-mono"><code>minikube start --driver=docker</code></pre>
+                          <p className="mt-1 opacity-80 italic">Note: Ye command Docker ke andar ek container banayega aur usme poora Kubernetes cluster setup karega. Isme thoda time lag sakta hai.</p>
+                        </div>
+                        <div>
+                          <strong className="text-foreground block mb-1">3. Verify karein ki cluster chal gaya hai</strong>
+                          <p className="mb-1">Jab upar wali command complete ho jaye, to ye check karne ke liye ki sab kuch theek se chal raha hai, ye command run karein:</p>
+                          <pre className="bg-muted/80 p-2 rounded overflow-x-auto text-muted-foreground border border-border/50 font-mono"><code>kubectl get nodes</code></pre>
+                          <p className="mt-1 opacity-80 italic">(Aapko minikube naam ka ek node dikhega jiska status Ready hoga.)</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <h3 className="text-sm font-semibold mb-2">1. Download Connector</h3>
