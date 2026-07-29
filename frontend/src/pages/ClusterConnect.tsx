@@ -1,42 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useClusterStore } from '../stores/cluster.store';
 import { Link, useNavigate } from 'react-router-dom';
-import { useConnectCluster } from '../hooks/useK8s';
-import { UploadCloud, Server, Loader2, AlertCircle, ArrowLeft } from 'lucide-react';
+import { Server, Loader2, AlertCircle, ArrowLeft, Terminal, CheckCircle2, Copy } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
+import api from '../lib/api';
 
 export default function ClusterConnect() {
   const { setConnected } = useClusterStore();
   const navigate = useNavigate();
-  const { mutate: connectCluster, isPending, error } = useConnectCluster();
   
-  const [clusterName, setClusterName] = useState('');
-  const [kubeconfig, setKubeconfig] = useState('');
-  
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setKubeconfig(event.target?.result as string);
-      };
-      reader.readAsText(file);
+  const [sessionId, setSessionId] = useState<string>('');
+  const [pairingCode, setPairingCode] = useState<string>('');
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    // Generate or retrieve session ID
+    let currentSession = localStorage.getItem('sessionId');
+    if (!currentSession) {
+      currentSession = crypto.randomUUID();
+      localStorage.setItem('sessionId', currentSession);
+    }
+    setSessionId(currentSession);
+  }, []);
+
+  const handleGenerateCode = async () => {
+    try {
+      setIsGenerating(true);
+      setError('');
+      const res = await api.post('/connector/pair', { sessionId });
+      setPairingCode(res.data.code);
+    } catch (err: any) {
+      setError(err.response?.data?.error || err.message || 'Failed to generate pairing code');
+    } finally {
+      setIsGenerating(false);
     }
   };
 
-  const handleConnect = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!clusterName || !kubeconfig) return;
+  const handleVerify = async () => {
+    try {
+      setIsVerifying(true);
+      setError('');
+      // Try to fetch namespaces to verify the connection works
+      await api.get('/namespaces');
+      
+      setConnected(true, {
+        id: 'local-cluster',
+        name: 'Local Cluster',
+        context: 'local',
+        server: 'Local Connector'
+      });
+      navigate('/dashboard');
+    } catch (err: any) {
+      setError('Connection not established yet. Make sure the connector is running.');
+    } finally {
+      setIsVerifying(false);
+    }
+  };
 
-    connectCluster(
-      { name: clusterName, kubeconfig },
-      {
-        onSuccess: (data) => {
-          setConnected(true, data.cluster);
-          navigate('/dashboard');
-        }
-      }
-    );
+  const copyCommand = (cmd: string) => {
+    navigator.clipboard.writeText(cmd);
   };
 
   return (
@@ -58,73 +82,76 @@ export default function ClusterConnect() {
         
         <Card className="border-border/50 shadow-2xl">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-bold">Connect your Cluster</CardTitle>
-            <CardDescription>Upload your kubeconfig file to visualize and manage your Kubernetes cluster.</CardDescription>
+            <CardTitle className="text-2xl font-bold">Connect Local Cluster</CardTitle>
+            <CardDescription>Use the KubeVision Local Connector to securely connect your local Kubernetes cluster without exposing it.</CardDescription>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleConnect} className="space-y-6">
-              
-              <div className="space-y-2">
-                <label className="text-sm font-medium leading-none">Cluster Name</label>
-                <input
-                  required
-                  type="text"
-                  placeholder="e.g. Production Cluster, Minikube, Kind"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  value={clusterName}
-                  onChange={(e) => setClusterName(e.target.value)}
-                />
+          <CardContent className="space-y-6">
+            
+            {!pairingCode ? (
+              <div className="flex flex-col items-center justify-center space-y-4 py-8">
+                <p className="text-sm text-muted-foreground text-center mb-4">
+                  Generate a pairing code to link your local machine with this session.
+                </p>
+                <button
+                  onClick={handleGenerateCode}
+                  disabled={isGenerating || !sessionId}
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-8 py-2"
+                >
+                  {isGenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                  Generate Pairing Code
+                </button>
               </div>
+            ) : (
+              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="p-6 bg-muted/30 rounded-xl text-center border border-border/50">
+                  <h3 className="text-sm font-medium text-muted-foreground mb-2">Your Pairing Code</h3>
+                  <div className="text-4xl font-mono font-bold tracking-widest text-primary">
+                    {pairingCode}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">Expires in 5 minutes</p>
+                </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium leading-none">Kubeconfig</label>
-                
-                <div className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:bg-muted/50 transition-colors cursor-pointer relative group">
-                  <input 
-                    type="file" 
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                    onChange={handleFileUpload}
-                  />
-                  <UploadCloud className="w-8 h-8 mx-auto text-muted-foreground group-hover:text-primary transition-colors mb-2" />
-                  {kubeconfig ? (
-                    <span className="text-sm font-medium text-green-500">File uploaded successfully</span>
-                  ) : (
+                <div className="space-y-4">
+                  <h3 className="text-sm font-semibold">1. Install the Connector</h3>
+                  <div className="relative group">
+                    <pre className="bg-muted p-4 rounded-lg text-sm font-mono flex items-center justify-between border border-border/50">
+                      <code>npm install -g kubevision-connector</code>
+                    </pre>
+                  </div>
+
+                  <h3 className="text-sm font-semibold">2. Pair & Start</h3>
+                  <div className="relative group">
+                    <pre className="bg-muted p-4 rounded-lg text-sm font-mono overflow-x-auto border border-border/50">
+                      <code>kubevision-connector pair {pairingCode}<br/>kubevision-connector start</code>
+                    </pre>
+                  </div>
+                </div>
+
+                <button
+                  onClick={handleVerify}
+                  disabled={isVerifying}
+                  className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
+                >
+                  {isVerifying ? (
                     <>
-                      <span className="text-sm font-medium block mb-1">Click to upload or drag and drop</span>
-                      <span className="text-xs text-muted-foreground">YAML or JSON kubeconfig file</span>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Verifying Connection...
                     </>
+                  ) : (
+                    'I have started the connector'
                   )}
-                </div>
+                </button>
               </div>
+            )}
 
-              {error && (
-                <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm flex items-start gap-2">
-                  <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
-                  <span>{(error as any).response?.data?.error || error.message}</span>
-                </div>
-              )}
-
-              <button
-                type="submit"
-                disabled={isPending || !clusterName || !kubeconfig}
-                className="w-full inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-              >
-                {isPending ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Connecting...
-                  </>
-                ) : (
-                  'Connect Cluster'
-                )}
-              </button>
-            </form>
+            {error && (
+              <div className="p-3 rounded-md bg-destructive/10 text-destructive text-sm flex items-start gap-2">
+                <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
           </CardContent>
         </Card>
-        
-        <p className="text-center text-xs text-muted-foreground mt-8">
-          All data remains strictly local. KubeVision does not send your cluster credentials to any external servers.
-        </p>
       </div>
     </div>
   );
