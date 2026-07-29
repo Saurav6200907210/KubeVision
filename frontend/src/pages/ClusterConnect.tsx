@@ -116,6 +116,14 @@ export default function ClusterConnect() {
                 </div>
 
                 <div className="space-y-4">
+                  <div className="mb-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20 text-sm text-blue-600 dark:text-blue-400">
+                    <h3 className="font-semibold flex items-center gap-2 mb-1">
+                      <AlertCircle className="w-4 h-4" />
+                      Prerequisite
+                    </h3>
+                    <p>Ensure your local Kubernetes cluster (e.g., Minikube or Docker Desktop) is running before starting the connector.</p>
+                  </div>
+
                   <h3 className="text-sm font-semibold mb-2">1. Download Connector</h3>
                   
                   <div className="flex gap-2 mb-4">
