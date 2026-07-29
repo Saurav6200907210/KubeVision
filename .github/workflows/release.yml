@@ -1,0 +1,36 @@
+name: Build and Release Connector
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: cd connector && npm ci
+
+      - name: Build
+        run: cd connector && npm run build
+
+      - name: Package with pkg
+        run: |
+          npm install -g pkg
+          cd connector
+          pkg package.json --out-path binaries
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: connector/binaries/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
