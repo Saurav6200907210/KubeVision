@@ -7,4 +7,12 @@ const api = axios.create({
   },
 });
 
+api.interceptors.request.use((config) => {
+  const sessionId = localStorage.getItem('sessionId');
+  if (sessionId) {
+    config.headers['x-session-id'] = sessionId;
+  }
+  return config;
+});
+
 export default api;
