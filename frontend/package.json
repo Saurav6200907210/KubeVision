@@ -22,7 +22,7 @@
     "reactflow": "^11.11.4",
     "recharts": "^3.10.1",
     "tailwind-merge": "^3.6.0",
-    "zustand": "^5.0.14"
+    "zustand": "^5.0.15"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
